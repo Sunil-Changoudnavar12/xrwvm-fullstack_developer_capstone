@@ -29,7 +29,7 @@ jobs:
           node-version: "20"
           cache: npm
           cache-dependency-path: server/frontend/package-lock.json
-       -  name: Build React application
+      - name: Build React application
           working-directory: server/frontend
           run: npm run build
           env:
