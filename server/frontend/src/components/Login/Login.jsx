@@ -9,7 +9,7 @@ const Login = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [open,setOpen] = useState(true)
 
-  let login_url = window.location.origin+"/djangoapp/login";
+  let login_url = "/djangoapp/login";
 
   const login = async (e) => {
     e.preventDefault();
@@ -26,12 +26,14 @@ const Login = ({ onClose }) => {
     });
     
     const json = await res.json();
-    if (json.status != null && json.status === "Authenticated") {
+    if (res.ok && json.status === "Authenticated") {
         sessionStorage.setItem('username', json.userName);
+        sessionStorage.setItem('firstname', json.firstName || "");
+        sessionStorage.setItem('lastname', json.lastName || "");
         setOpen(false);        
     }
     else {
-      alert("The user could not be authenticated.")
+      alert(json.status || json.error || "The user could not be authenticated.")
     }
 };
 
@@ -63,7 +65,7 @@ const Login = ({ onClose }) => {
               <input className="action_button" type="submit" value="Login"/>
               <input className="action_button" type="button" value="Cancel" onClick={()=>setOpen(false)}/>
               </div>
-              <a className="loginlink" href="/register">Register Now</a>
+          <a className="loginlink" href="/register">Register Now</a>
           </form>
       </div>
     </div>

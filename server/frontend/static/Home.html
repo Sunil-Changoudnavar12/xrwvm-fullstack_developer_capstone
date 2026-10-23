@@ -56,9 +56,30 @@ let checkSession = ()=>{
   <img src="static/car_dealership.jpg" class="card-img-top" alt="...">
   <div class="banner">
     <h5>Welcome to our Dealerships!</h5>
-    <a href="/dealers" class="btn" style="background-color: aqua;margin:10px">View Dealerships</a>
+    <a href="/" class="btn" style="background-color: aqua;margin:10px">View Dealerships</a>
   </div>
 </div>
 </div>
+<main class="container my-5">
+  <h1>Find a dealership</h1>
+  <p>Browse locations and open a dealership to see customer reviews.</p>
+  {% if dealerships %}
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <thead><tr><th>Dealership</th><th>City</th><th>State</th><th>Address</th><th>ZIP</th></tr></thead>
+      <tbody>
+        {% for dealer in dealerships %}
+        <tr>
+          <td><a href="/dealer/{{ dealer.id }}">{{ dealer.full_name }}</a></td>
+          <td>{{ dealer.city }}</td><td>{{ dealer.state }}</td><td>{{ dealer.address }}</td><td>{{ dealer.zip }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p role="status">Dealership listings are temporarily unavailable. Please start the dealership API and MongoDB services.</p>
+  {% endif %}
+</main>
 </body>
 </html>

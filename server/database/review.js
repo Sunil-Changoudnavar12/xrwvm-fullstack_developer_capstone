@@ -39,6 +39,10 @@ const reviews = new Schema({
     type: Number,
     required: true
   },
+  sentiment: {
+    type: String,
+    enum: ['positive', 'neutral', 'negative'],
+  },
 });
 
 module.exports = mongoose.model('reviews', reviews);

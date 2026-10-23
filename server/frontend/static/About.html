@@ -1,68 +1,320 @@
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <!-- Link the style sheet here -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Dealerships</title>
+
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #f4f7fb;
+      color: #172b4d;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background: #10233f;
+      padding: 16px 5%;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .navbar-brand {
+      color: white !important;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .navbar .nav-link {
+      color: #dbe6f5 !important;
+      margin-left: 15px;
+      font-size: 16px;
+    }
+
+    .navbar .nav-link.active,
+    .navbar .nav-link:hover {
+      color: #48d6c5 !important;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #10233f, #174b70);
+      color: white;
+      text-align: center;
+      padding: 65px 20px 75px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      max-width: 750px;
+      margin: auto;
+      color: #dbe6f5;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .section-container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 55px 20px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    .mission {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 55px;
+      box-shadow: 0 8px 25px rgba(16, 35, 63, 0.06);
+    }
+
+    .mission h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .mission p {
+      color: #64748b;
+      line-height: 1.9;
+      margin-bottom: 0;
+    }
+
+    .team-card {
+      height: 100%;
+      background: white;
+      border: 1px solid #e6edf5;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(16, 35, 63, 0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #e3faf6;
+    }
+
+    .team-card .card-body {
+      padding: 24px;
+    }
+
+    .team-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .team-role {
+      color: #087e76;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .team-card p {
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    .team-card a {
+      color: #087e76;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .team-card a:hover {
+      text-decoration: underline;
+    }
+
+    .values {
+      background: #e8f8f6;
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 55px;
+    }
+
+    .values h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .values p {
+      color: #425466;
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    footer {
+      background: #10233f;
+      color: #dbe6f5;
+      text-align: center;
+      padding: 22px 15px;
+    }
+
+    @media (max-width: 767px) {
+      .navbar .nav-link {
+        margin-left: 0;
+      }
+
+      .hero {
+        padding: 48px 20px;
+      }
+
+      .team-card img {
+        height: 250px;
+      }
+    }
+  </style>
 </head>
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="/">Dealerships.</a>
+
+      <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false"
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" style="font-size: larger;" href="/about">About Us</a>
+            <a class="nav-link active" aria-current="page" href="/about">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
+            <a class="nav-link" href="/contact">Contact Us</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
-      <div class="banner" name="about-header">
-      <!-- Insert header information here -->
-      </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
-        </div>
+
+  <header class="hero">
+    <h1>Driving Better Car-Buying Decisions</h1>
+    <p>
+      We help people explore dealerships, discover vehicle information,
+      and learn from customer reviews—all in one place.
+    </p>
+  </header>
+
+  <main class="section-container">
+    <section class="mission">
+      <h2>Who We Are</h2>
+      <p>
+        Dealerships is a web platform designed to make dealership information
+        easier to discover and understand. Customers can explore dealerships,
+        learn about their services, and read reviews shared by other buyers.
+        Our goal is to make the car-buying research process clearer and more
+        convenient.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Meet Our Team</h2>
+        <p>
+          Our sample project team represents the planning, development,
+          and quality work behind the platform.
+        </p>
       </div>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="team-card">
+            <img src="/static/person.png" alt="Project coordinator profile">
+            <div class="card-body">
+              <h3>Alex Morgan</h3>
+              <div class="team-role">Project Coordinator</div>
+              <p>
+                Coordinates project planning and organizes tasks to keep
+                the platform focused on customer needs.
+              </p>
+              <a href="mailto:alex@example.com">alex@example.com</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="team-card">
+            <img src="/static/person.png" alt="Full-stack developer profile">
+            <div class="card-body">
+              <h3>Jordan Lee</h3>
+              <div class="team-role">Full-Stack Developer</div>
+              <p>
+                Develops the website interface and backend functionality
+                for dealership information and customer reviews.
+              </p>
+              <a href="mailto:jordan@example.com">jordan@example.com</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="team-card">
+            <img src="/static/person.png" alt="Quality analyst profile">
+            <div class="card-body">
+              <h3>Taylor Smith</h3>
+              <div class="team-role">Quality Analyst</div>
+              <p>
+                Checks application behavior and data quality to help make
+                the platform reliable and easy to use.
+              </p>
+              <a href="mailto:taylor@example.com">taylor@example.com</a>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    
-</div>
+    <section class="values">
+      <h2>Our Commitment</h2>
+      <p>
+        We aim to present dealership information clearly, make customer
+        feedback easier to explore, and provide a simple experience across
+        desktop and mobile devices.
+      </p>
+    </section>
+  </main>
 
+  <footer>
+    <p class="mb-0">&copy; 2026 Dealerships. Helping customers make informed decisions.</p>
+  </footer>
+
+  <script src="/static/bootstrap.bundle.min.js"></script>
+</body>
 </html>

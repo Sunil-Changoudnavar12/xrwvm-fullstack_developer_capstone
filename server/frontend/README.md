@@ -1,3 +1,47 @@
+# Dealerships — Full-Stack Development Capstone
+
+## Project Overview
+
+Dealerships is a full-stack web application that helps users explore car dealerships, view dealership information, and read customer reviews.
+
+The project uses Django for the web application backend, React for frontend components, and a Node.js API with MongoDB for dealership and review data. It also includes a sentiment analysis microservice for analyzing customer feedback.
+
+## Features
+
+- Browse dealership information.
+- Filter dealerships by state.
+- View dealership details and customer reviews.
+- Register and log in to the application.
+- Submit dealership reviews.
+- Analyze review sentiment.
+- Manage car makes and models through Django Admin.
+
+## Technology Stack
+
+- **Frontend:** HTML, CSS, Bootstrap, React
+- **Backend:** Python, Django, Node.js, Express.js
+- **Database:** MongoDB
+- **Additional tools:** Docker, Git, GitHub
+
+## Project Structure
+
+```text
+xrwvm-fullstack_developer_capstone/
+├── server/
+│   ├── database/
+│   │   ├── app.js
+│   │   ├── docker-compose.yml
+│   │   └── data/
+│   ├── djangoapp/
+│   ├── djangoproj/
+│   └── frontend/
+│       ├── src/
+│       └── static/
+└── oaqjp-final-project-emb-ai/
+```
+
+## Running the Project Loc
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
