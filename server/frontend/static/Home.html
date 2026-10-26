@@ -1,85 +1,257 @@
+
 <html>
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="static/style.css">
-  <link rel="stylesheet" href="static/bootstrap.min.css">
-<script>
+  <title>Dealerships</title>
 
-const logout = async (e) => {
-//Include the code for logout here.
-};
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  >
 
-let checkSession = ()=>{
-  let curr_user = sessionStorage.getItem("username");
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
 
-  if (curr_user && curr_user !== "") {
-    document.getElementById("loginlogout").innerHTML = 
-    '<span class="homepage_links">' + curr_user +'</span>' +
-    '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
-  } else {
-    document.getElementById("loginlogout").innerHTML = 
-    '<a class="homepage_links" href="/login">Login</a>'+
-    '<a class="homepage_links"  href="/register">Register</a>'
-  }
- }
-</script>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+
+  <script>
+    const logout = async () => {
+      try {
+        const response = await fetch("/djangoapp/logout", {
+          method: "GET",
+          credentials: "same-origin"
+        });
+
+        sessionStorage.removeItem("username");
+        window.location.href = "/";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    };
+
+    function checkSession() {
+      const currUser = sessionStorage.getItem("username");
+      const loginLogout = document.getElementById("loginlogout");
+
+      if (currUser && currUser !== "") {
+        loginLogout.innerHTML =
+          '<span class="homepage_links">' + currUser + '</span>' +
+          '<a class="homepage_links" href="#" onclick="logout(); return false;">Logout</a>';
+      } else {
+        loginLogout.innerHTML =
+          '<a class="homepage_links" href="/login">Login</a>' +
+          '<a class="homepage_links" href="/register">Register</a>';
+      }
+    }
+  </script>
 </head>
+
 <body onload="checkSession()">
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
-  <div class="container-fluid">
-    <h2 style="padding-right: 5%;">Dealerships</h2>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" style="font-size: larger;" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-        <div class="loginlink" id="loginlogout">
-        </div>
+
+  <nav
+    class="navbar navbar-expand-lg navbar-light"
+    style="background-color: darkturquoise; height: 1in;"
+  >
+    <div class="container-fluid">
+      <h2 style="padding-right: 5%;">Dealerships</h2>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              style="font-size: larger;"
+              aria-current="page"
+              href="/"
+            >Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              style="font-size: larger;"
+              href="/about"
+            >About Us</a>
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              style="font-size: larger;"
+              href="/contact"
+            >Contact Us</a>
+          </li>
+        </ul>
+
+        <span class="navbar-text">
+          <div class="loginlink" id="loginlogout"></div>
         </span>
+      </div>
+    </div>
+  </nav>
+
+  <div style="display: flex; flex-direction: column;">
+    <div
+      class="card"
+      style="width: 50%; margin-top: 50px; align-self: center;"
+    >
+      <img
+        src="/static/car_dealership.jpg"
+        class="card-img-top"
+        alt="Car dealership"
+      >
+
+      <div class="banner">
+        <h5>Welcome to our Dealerships!</h5>
+        <a
+          href="/"
+          class="btn"
+          style="background-color: aqua; margin: 10px;"
+        >View Dealerships</a>
+      </div>
     </div>
   </div>
-</nav>
-<div style="display: flex;flex-direction: column;">
-<div class="card" style="width: 50%;margin-top: 50px;align-self: center;">
-  <img src="static/car_dealership.jpg" class="card-img-top" alt="...">
-  <div class="banner">
-    <h5>Welcome to our Dealerships!</h5>
-    <a href="/" class="btn" style="background-color: aqua;margin:10px">View Dealerships</a>
-  </div>
-</div>
-</div>
-<main class="container my-5">
-  <h1>Find a dealership</h1>
-  <p>Browse locations and open a dealership to see customer reviews.</p>
-  {% if dealerships %}
-  <div class="table-responsive">
-    <table class="table table-striped align-middle">
-      <thead><tr><th>Dealership</th><th>City</th><th>State</th><th>Address</th><th>ZIP</th></tr></thead>
-      <tbody>
-        {% for dealer in dealerships %}
-        <tr>
-          <td><a href="/dealer/{{ dealer.id }}">{{ dealer.full_name }}</a></td>
-          <td>{{ dealer.city }}</td><td>{{ dealer.state }}</td><td>{{ dealer.address }}</td><td>{{ dealer.zip }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <p role="status">Dealership listings are temporarily unavailable. Please start the dealership API and MongoDB services.</p>
-  {% endif %}
-</main>
+
+  <main class="container my-5">
+    <h1>Find a dealership</h1>
+    <p>Browse locations and open a dealership to see customer reviews.</p>
+
+    {% if dealerships %}
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Dealership</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Address</th>
+            <th>ZIP</th>
+          </tr>
+
+          <tr>
+            <th colspan="2">Filter by state</th>
+            <th>
+              <select id="state-filter" class="form-select">
+                <option value="All">All States</option>
+                {% for dealer in dealerships %}
+                <option value="{{ dealer.state }}">{{ dealer.state }}</option>
+                {% endfor %}
+              </select>
+            </th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody id="dealers-body">
+          {% for dealer in dealerships %}
+          <tr>
+            <td>
+              <a href="/dealer/{{ dealer.id }}">{{ dealer.full_name }}</a>
+            </td>
+            <td>{{ dealer.city }}</td>
+            <td>{{ dealer.state }}</td>
+            <td>{{ dealer.address }}</td>
+            <td>{{ dealer.zip }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% else %}
+    <p role="status">
+      Dealership listings are temporarily unavailable. Please start the
+      dealership API and MongoDB services.
+    </p>
+    {% endif %}
+  </main>
+
+  <script>
+    const stateFilter = document.getElementById("state-filter");
+
+    if (stateFilter) {
+      // Remove duplicate state names from the dropdown.
+      const options = Array.from(stateFilter.options);
+      const seenStates = new Set();
+
+      options.forEach(function (option) {
+        if (option.value === "All") return;
+
+        const normalizedState = option.value.trim().toLowerCase();
+
+        if (seenStates.has(normalizedState)) {
+          option.remove();
+        } else {
+          seenStates.add(normalizedState);
+        }
+      });
+
+      stateFilter.addEventListener("change", async function () {
+        const state = this.value;
+        const endpoint =
+          "/djangoapp/get_dealers/" + encodeURIComponent(state);
+
+        try {
+          const response = await fetch(endpoint);
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error("Request failed: " + response.status);
+          }
+
+          const tbody = document.getElementById("dealers-body");
+          tbody.replaceChildren();
+
+          (result.dealers || []).forEach(function (dealer) {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            const dealerLink = document.createElement("a");
+
+            dealerLink.href = "/dealer/" + dealer.id;
+            dealerLink.textContent = dealer.full_name || "View dealership";
+            nameCell.appendChild(dealerLink);
+            row.appendChild(nameCell);
+
+            [
+              dealer.city,
+              dealer.state,
+              dealer.address,
+              dealer.zip
+            ].forEach(function (value) {
+              const cell = document.createElement("td");
+              cell.textContent = value || "";
+              row.appendChild(cell);
+            });
+
+            tbody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Could not filter dealerships:", error);
+          alert(
+            "Could not load dealerships. Check that the dealership API is running."
+          );
+        }
+      });
+    }
+  </script>
+
 </body>
 </html>

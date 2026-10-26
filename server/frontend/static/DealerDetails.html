@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealer Details and Reviews</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial, sans-serif;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .panel {
+            background: white;
+            padding: 24px;
+            margin-bottom: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+        h1, h2 {
+            color: #17365d;
+        }
+        .detail {
+            margin: 10px 0;
+        }
+        .review {
+            border-left: 4px solid #198754;
+            background: #f8fafc;
+            padding: 15px;
+            margin-top: 14px;
+            border-radius: 5px;
+        }
+        .muted {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <h1 class="mb-4">Dealer Details and Customer Reviews</h1>
+
+        <section class="panel">
+            <h2>Dealer Details</h2>
+            <div id="dealer-details">Loading dealer details...</div>
+        </section>
+
+        <section class="panel">
+            <h2>Customer Reviews</h2>
+            <div id="dealer-reviews">Loading customer reviews...</div>
+        </section>
+    </main>
+
+    <script>
+        const dealerId = new URLSearchParams(window.location.search).get("dealer_id")
+        || window.location.pathname.split("/").filter(Boolean).pop();
+
+        async function loadDealerPage() {
+            const detailsBox = document.getElementById("dealer-details");
+            const reviewsBox = document.getElementById("dealer-reviews");
+
+            if (!/^\d+$/.test(dealerId)) {
+                detailsBox.textContent = "Please open this page using a dealer ID in the URL.";
+                reviewsBox.textContent = "No dealer ID was provided.";
+                return;
+            }
+
+            try {
+                const dealerResponse = await fetch(`/djangoapp/dealer/${dealerId}`);
+                const dealerData = await dealerResponse.json();
+
+                if (!dealerResponse.ok || !dealerData.dealer) {
+                    throw new Error("Dealer details could not be loaded.");
+                }
+
+                const dealer = dealerData.dealer;
+                detailsBox.replaceChildren();
+
+                const fields = [
+                    ["Dealer Name", dealer.full_name || dealer.short_name || "N/A"],
+                    ["Dealer ID", dealer.id ?? dealerId],
+                    ["City", dealer.city || "N/A"],
+                    ["State", dealer.state || "N/A"],
+                    ["Address", dealer.address || "N/A"],
+                    ["ZIP Code", dealer.zip || "N/A"]
+                ];
+
+                fields.forEach(([label, value]) => {
+                    const row = document.createElement("p");
+                    row.className = "detail";
+                    const strong = document.createElement("strong");
+                    strong.textContent = label + ": ";
+                    row.append(strong, document.createTextNode(String(value)));
+                    detailsBox.appendChild(row);
+                });
+
+                const reviewsResponse = await fetch(`/djangoapp/reviews/dealer/${dealerId}`);
+                const reviewsData = await reviewsResponse.json();
+
+                if (!reviewsResponse.ok) {
+                    throw new Error("Customer reviews could not be loaded.");
+                }
+
+                const reviews = reviewsData.reviews;
+                reviewsBox.replaceChildren();
+
+                if (!Array.isArray(reviews) || reviews.length === 0) {
+                    reviewsBox.textContent = "No customer reviews are available for this dealer.";
+                    return;
+                }
+
+                reviews.forEach(review => {
+                    const card = document.createElement("article");
+                    card.className = "review";
+
+                    const reviewer = document.createElement("h5");
+                    reviewer.textContent = review.name || review.username || "Customer";
+
+                    const message = document.createElement("p");
+                    message.textContent = review.review || review.text || "No review text provided.";
+
+                    card.append(reviewer, message);
+
+                    if (review.sentiment) {
+                        const sentiment = document.createElement("p");
+                        sentiment.className = "muted";
+                        sentiment.textContent = "Sentiment: " + review.sentiment;
+                        card.appendChild(sentiment);
+                    }
+
+                    reviewsBox.appendChild(card);
+                });
+            } catch (error) {
+                detailsBox.textContent = error.message;
+                reviewsBox.textContent = "Could not load reviews. Check that the API services are running.";
+            }
+        }
+
+        loadDealerPage();
+    </script>
+</body>
+</html>

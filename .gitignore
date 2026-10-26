@@ -127,3 +127,31 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Local login and session data
+/login.json
+/login-request.json
+/server/database/login.json
+/server/database/cookies.txt
+/server/database/review.json
+
+# Local API response files
+/server/analyzereview
+/server/django_server
+/server/get_carmodels
+/server/getallcarmakes
+/server/getalldealers
+/server/getallreviews
+/server/getcarmake
+/server/getcarmodel
+/server/getcarmodels
+/server/getcars
+/server/getdealerbyid
+/server/getdealerdetails
+/server/getdealerreviews
+/server/getdealersbyState
+/server/getreviewsbydealer
+/server/loginuser
+/server/logoutuser
+
+/server/database/getalldealers

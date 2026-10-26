@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Dealer Review</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        body { background: #f4f6f9; font-family: Arial, sans-serif; padding: 30px 15px; }
+        .review-form { max-width: 750px; margin: auto; background: white; padding: 28px; border-radius: 10px; box-shadow: 0 2px 10px #00000015; }
+        h1 { color: #17365d; margin-bottom: 24px; }
+        label { font-weight: 600; margin-top: 12px; }
+        .form-control, .form-select { margin-top: 6px; }
+    </style>
+</head>
+<body>
+    <main class="review-form">
+        <h1>Post a Review</h1>
+
+        <form method="post" action="/djangoapp/add_review">
+            {% csrf_token %}
+
+            <label for="name">Your Name</label>
+            <input class="form-control" type="text" id="name" name="name" required>
+
+            <label for="dealership">Dealership</label>
+            <select class="form-control" id="dealership" name="dealership" required>
+                <option value="">Select a dealership</option>
+                {% for dealer in dealerships %}
+                <option value="{{ dealer.id }}">{{ dealer.full_name|default:dealer.short_name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="review">Your Review</label>
+            <textarea class="form-control" id="review" name="review" rows="4" required placeholder="Share your experience"></textarea>
+
+            <label for="purchase">Did you purchase a car?</label>
+            <select class="form-control" id="purchase" name="purchase" required>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+
+            <label for="purchase_date">Purchase Date</label>
+            <input class="form-control" type="date" id="purchase_date" name="purchase_date" required>
+
+            <label for="car_make">Car Make</label>
+            <input class="form-control" type="text" id="car_make" name="car_make" required>
+
+            <label for="car_model">Car Model</label>
+            <input class="form-control" type="text" id="car_model" name="car_model" required>
+
+            <label for="car_year">Car Year (2015–2023)</label>
+            <select class="form-control" id="car_year" name="car_year" required>
+                <option value="">Select year</option>
+                {% for year in "2023,2022,2021,2020,2019,2018,2017,2016,2015"|cut:" "|make_list %}
+                {% endfor %}
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+            </select>
+
+            <button class="btn btn-primary mt-4" type="submit">Submit Review</button>
+        </form>
+    </main>
+</body>
+</html>
